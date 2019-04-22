@@ -1,12 +1,13 @@
-# RSocket Messaging in Spring Boot 2.2 with Kotlin
+k= RSocket Messaging in Spring Boot 2.2 with Kotlin
 
+Based on
+- https://spring.io/blog/2019/04/15/spring-tips-rsocket-messaging-in-spring-boot-2-2[https://spring.io/blog/2019/04/15/spring-tips-rsocket-messaging-in-spring-boot-2-2]
+- https://www.youtube.com/watch?v=BxHqeq58xrE[https://www.youtube.com/watch?v=BxHqeq58xrE]
 
-Based on 
-- https://spring.io/blog/2019/04/15/spring-tips-rsocket-messaging-in-spring-boot-2-2
-- https://www.youtube.com/watch?v=BxHqeq58xrE
+== Index Controller
 
-## Index Controller
-```bash
+[source,bash]
+----
 $ http :8080
 {
     "_links": {
@@ -23,18 +24,22 @@ $ http :8080
         }
     }
 }
-```
+----
 
-## RSocket 
-```bash
+== RSocket
+
+[source,bash]
+----
 $ http :8080/greet/Basco
 {
     "greetings": "Hello Basco @2019-04-21T10:24:32.472Z"
 }
-```
+----
 
-## RSocket Stream
-```bash
+== RSocket Stream
+
+[source,bash]
+----
 $ http :8080/greet/sse/John --stream                                                                  1007ms  Sun Apr 21 12:24:32 2019
 
 HTTP/1.1 200
@@ -45,4 +50,4 @@ Transfer-Encoding: chunked
 data:{"greetings":"Hello John 1 @2019-04-21T10:24:44.871Z"}
 data:{"greetings":"Hello John 2 @2019-04-21T10:24:45.876Z"}
 data:{"greetings":"Hello John 3 @2019-04-21T10:24:46.879Z"}
-```
+----

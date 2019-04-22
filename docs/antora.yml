@@ -1,0 +1,5 @@
+name: RSocket Demo
+title: Spring Boot Demo
+version: master
+nav:
+- modules/ROOT/nav.adoc

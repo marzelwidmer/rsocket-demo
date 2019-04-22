@@ -33,7 +33,8 @@ fun requester(rSocketStrategies: RSocketStrategies): RSocketRequester =
 ----
 
 
-I will put everything in the _RsocketConsumer_ class.
+For simplification I will put everything in the _RsocketConsumer_ class.
+
 [source,java]
 ----
 @SpringBootApplication

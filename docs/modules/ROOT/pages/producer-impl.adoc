@@ -5,3 +5,86 @@ endif::[]
 // Settings
 :idprefix:
 :idseparator: -
+
+Our *DTO* _Data Transfer Object_ have a property _name_ as optional.
+[source,java]
+----
+data class GreetingsRequest(val name: String?)
+----
+
+We will generate on the _GreetingsResponse_ class a amazing business logic who well give us back
+a _greetings_ text with _Hello_ with the given argument and the current system clock.
+for this we will create a _var greetings_ and a _private_ _set_ function.
+[source,java]
+----
+class GreetingsResponse(greetings: String?) {
+    var greetings: String = "Hello $greetings @${Instant.now()}"
+        private set
+        get
+}
+----
+
+We have a Rest controller function and a Stream function. On the Stream controller we will also implement a amazing business logic
+who will give ous a service hit counter back.
+
+The Rest Controller Function _greet_ just will give us back the name _PathVariable_ we pass in with the current system clock we describe above.
+[source,java]
+----
+@MessageMapping(value = ["greet"])
+    fun greet(request: GreetingsRequest): GreetingsResponse = GreetingsResponse(request.name)
+----
+
+The Stream Controller Function will ous give back also a service hit count. with a delay of _1 second_
+
+[source,java]
+----
+@MessageMapping(value = ["greet-stream"])
+    fun greetStream(request: GreetingsRequest) =
+            Flux.fromStream(
+                    Stream.generate<Any> {
+                        GreetingsResponse(request.name + " ${serviceHitCounter.getAndIncrement()}")
+                    }
+            ).delayElements(Duration.ofSeconds(1))
+----
+
+
+
+
+
+For simplification I will put everything in the _RsocketProducer_ class.
+
+[source,java]
+----
+@SpringBootApplication
+class RsocketProducer
+
+fun main(args: Array<String>) {
+    runApplication<RsocketProducer>(*args)
+}
+
+data class GreetingsRequest(val name: String?)
+class GreetingsResponse(greetings: String?) {
+    var greetings: String = "Hello $greetings @${Instant.now()}"
+        private set
+        get
+}
+
+@Controller
+class GreetingsRSocketController {
+
+    var serviceHitCounter = AtomicInteger(1)
+
+    @MessageMapping(value = ["greet-stream"])
+    fun greetStream(request: GreetingsRequest) =
+            Flux.fromStream(
+                    Stream.generate<Any> {
+                        GreetingsResponse(request.name + " ${serviceHitCounter.getAndIncrement()}")
+                    }
+            ).delayElements(Duration.ofSeconds(1))
+
+    @MessageMapping(value = ["greet"])
+    fun greet(request: GreetingsRequest): GreetingsResponse = GreetingsResponse(request.name)
+
+}
+
+----

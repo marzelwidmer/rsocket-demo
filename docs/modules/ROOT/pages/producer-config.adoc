@@ -7,7 +7,7 @@ endif::[]
 :idseparator: -
 
 
-On the _Producer_ side we will configure a #_spring.rsocker.server.port_
+On the _Producer_ side we will configure a _spring.*rsocker*.server.port_
 
 [source,yaml]
 ----
@@ -20,6 +20,7 @@ spring:
 
 We also will configure a different _server.port_ because we still will start a _Tomcat_ server. and want start both
 _consumer_ and _producer_ on the same machine.
+
 [source,yaml]
 ----
 spring:

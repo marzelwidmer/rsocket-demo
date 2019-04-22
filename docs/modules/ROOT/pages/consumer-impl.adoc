@@ -1,0 +1,57 @@
+= Consumer Implementation
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+
+Implement the a connection factory.
+[source,java]
+----
+@Bean
+fun rSocket(): RSocket? = RSocketFactory
+        .connect()
+        .dataMimeType(MimeTypeUtils.APPLICATION_JSON_VALUE)
+        .frameDecoder(PayloadDecoder.ZERO_COPY)
+        .transport(TcpClientTransport.create(7000))
+        .start()
+        .block()
+----
+
+Register a Client bean _RSocketRequester_ this is a thin wrapper around a sending
+ _RSocket_ with a fluent API accepting and returning higher level Objects for input and for output, along with
+ methods specify routing and other metadata.
+
+[source,java]
+----
+@Bean
+fun requester(rSocketStrategies: RSocketStrategies): RSocketRequester =
+        RSocketRequester.create(rSocket()!!,
+                MimeTypeUtils.APPLICATION_JSON, rSocketStrategies)
+----
+
+
+I will put everything in the _RsocketConsumer_ class.
+[source,java]
+----
+@SpringBootApplication
+class RsocketConsumer {
+    @Bean
+    fun rSocket(): RSocket? = RSocketFactory
+            .connect()
+            .dataMimeType(MimeTypeUtils.APPLICATION_JSON_VALUE)
+            .frameDecoder(PayloadDecoder.ZERO_COPY)
+            .transport(TcpClientTransport.create(7000))
+            .start()
+            .block()
+
+    // Client
+    @Bean
+    fun requester(rSocketStrategies: RSocketStrategies): RSocketRequester =
+            RSocketRequester.create(rSocket()!!,
+                    MimeTypeUtils.APPLICATION_JSON, rSocketStrategies)
+
+}
+----

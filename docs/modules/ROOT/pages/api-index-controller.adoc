@@ -1,0 +1,27 @@
+== Index Controller
+Call Index Controller (Root Controller) with https://httpie.org/[HTTPie]
+
+[source,bash]
+----
+$ http :8080
+----
+
+.Result
+[source, yaml]
+----
+{
+    "_links": {
+        "greet": {
+            "href": "http://localhost:8080/greet/{name}",
+            "templated": true
+        },
+        "greet-stream": {
+            "href": "http://localhost:8080/greet/sse/{name}",
+            "templated": true
+        },
+        "self": {
+            "href": "http://localhost:8080/"
+        }
+    }
+}
+----

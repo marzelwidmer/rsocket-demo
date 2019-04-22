@@ -1,0 +1,14 @@
+= RSocket Messaging in Spring Boot 2.2 with Kotlin
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+_RSocket_ Streaming message protocol with Reactive Extension/Stream semantics
+
+Based on :
+
+    - https://spring.io/blog/2019/04/15/spring-tips-rsocket-messaging-in-spring-boot-2-2[Spring Tips RSocket]
+    - https://www.youtube.com/watch?v=BxHqeq58xrE[Spring Tips - youtube.com]

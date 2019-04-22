@@ -1,0 +1,18 @@
+== Rest Controller
+Call Rest Controller with _PathVariable_ #basco
+
+[source,bash]
+----
+$ http :8080/greet/Basco
+----
+
+.Result
+[source, yaml]
+----
+{
+    "greetings": "Hello Basco @2019-04-21T10:24:32.472Z"
+}
+----
+
+
+

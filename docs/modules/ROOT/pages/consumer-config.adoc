@@ -1,0 +1,20 @@
+= Consumer Configuration
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+
+Our _Consumer_ configuration are basically a default configuration.
+[source,yaml]
+----
+spring:
+   application:
+     name: rsocket-consumer
+   main:
+     lazy-initialization: true
+ server:
+   port: 8080
+----

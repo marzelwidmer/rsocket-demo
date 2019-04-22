@@ -1,0 +1,37 @@
+= Consumer Configuration
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+
+On the _Producer_ side we will configure a #_spring.rsocker.server.port_
+
+[source,yaml]
+----
+spring:
+  rsocket:
+    server:
+      port: 7000
+----
+
+
+We also will configure a different _server.port_ because we still will start a _Tomcat_ server. and want start both
+_consumer_ and _producer_ on the same machine.
+[source,yaml]
+----
+spring:
+  application:
+    name: rsocket-producer
+
+  main:
+    lazy-initialization: true
+
+  rsocket:
+    server:
+      port: 7000
+server:
+  port: 8081
+----

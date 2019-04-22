@@ -1,4 +1,4 @@
-* xref:welcome.adoc[Welcome]
+* xref:index.adoc[Welcome]
 
 * API
 ** xref:api-index-controller.adoc[Index Controller]

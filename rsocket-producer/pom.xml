@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.3.30</kotlin.version>
+		<jib-maven-plugin.version>1.1.2</jib-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -87,6 +88,32 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+
+			<!-- JIB - Dockerize -->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<to>
+						<image>marzelwidmer/rsocket-producer</image>
+					</to>
+					<container>
+						<ports>
+							<port>8080</port>
+							<port>7000</port>
+						</ports>
+					</container>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

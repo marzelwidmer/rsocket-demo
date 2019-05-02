@@ -99,7 +99,20 @@
 					<to>
 						<image>marzelwidmer/rsocket-consumer</image>
 					</to>
+					<container>
+						<ports>
+							<port>8080</port>
+						</ports>
+					</container>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

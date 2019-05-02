@@ -12,3 +12,39 @@ Based on :
 
     - https://spring.io/blog/2019/04/15/spring-tips-rsocket-messaging-in-spring-boot-2-2[Spring Tips RSocket]
     - https://www.youtube.com/watch?v=BxHqeq58xrE[Spring Tips - youtube.com]
+
+
+
+== Deploy on Openshift
+
+=== Consumer  Build Docker Image with Jib
+
+```bash
+mvn package
+```
+
+```bash
+oc new-app --docker-image=marzelwidmer/rsocket-consumer \                                                                                                39.8s  Thu May  2 16:56:30 2019
+      --name='rsocket-consumer' \
+      -l name='rsocket-consumer' \
+      -e SELECTOR=rsocket
+```
+```bash
+oc apply -f k8s/service-consumer.yaml
+```
+```bash
+oc expose service rsocket-consumer
+```
+
+=== Producer  Build Docker Image with Jib
+
+```bash
+mvn package
+```
+
+```bash
+oc new-app --docker-image=marzelwidmer/rsocket-producer \
+      --name='rsocket-producer' \
+      -l name='rsocket-producer' \
+      -e SELECTOR=rsocket
+```

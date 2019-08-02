@@ -35,9 +35,8 @@ class RsocketConsumer {
     // Client
     @Bean
     fun requester(rSocketStrategies: RSocketStrategies): RSocketRequester =
-            RSocketRequester.create(rSocket()!!,
-                    MimeTypeUtils.APPLICATION_JSON, rSocketStrategies)
-
+            RSocketRequester.wrap(
+                    rSocket()!!, MimeTypeUtils.APPLICATION_JSON, MimeTypeUtils.APPLICATION_JSON, rSocketStrategies)
 }
 
 fun main(args: Array<String>) {
@@ -76,6 +75,7 @@ data class GreetingsResponse(val greetings: String)
 //  |_| |_/_/   \_\_____|
 //
 open class Index : RepresentationModel<Index>()
+
 @RestController
 @RequestMapping(value = ["/"], produces = [MediaTypes.HAL_JSON_UTF8_VALUE])
 class IndexController {
